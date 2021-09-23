@@ -23,62 +23,9 @@
       "prettier"
     ],
     "plugins": ["react", "@typescript-eslint", "jest", "jsx-a11y", "prefer-arrow", "prettier", "unused-imports"],
-    "overrides": [
-        {
-            "files": ["*.js"],
-            "rules": {
-                "import/no-unused-modules": [
-                    "error",
-                    {
-                        "src": ["**/*.js"],
-                        "missingExports": false,
-                        "unusedExports": true
-                    }
-                ]
-            }
-        },
-        {
-            "files": ["*.ts"],
-            "rules": {
-                "import/no-unused-modules": [
-                    "error",
-                    {
-                        "src": ["**/*.ts"],
-                        "missingExports": false,
-                        "unusedExports": true
-                    }
-                ]
-            }
-        },
-        {
-            "files": ["*.jsx"],
-            "rules": {
-                "import/no-unused-modules": [
-                    "error",
-                    {
-                        "src": ["**/*.jsx"],
-                        "missingExports": false,
-                        "unusedExports": true
-                    }
-                ]
-            }
-        },
-        {
-            "files": ["*.tsx"],
-            "rules": {
-                "import/no-unused-modules": [
-                    "error",
-                    {
-                        "src": ["**/*.tsx"],
-                        "missingExports": false,
-                        "unusedExports": true
-                    }
-                ]
-            }
-        }
-    ],
+    
     "rules": {
-      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/explicit-module-boundary-types": "error",
       "keyword-spacing": "error",
       "react-hooks/exhaustive-deps": "error",
@@ -106,6 +53,11 @@
             "caseInsensitive": true
           }
         }
-      ]
+      ],
+      "unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{ "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+		]
     }
   }
