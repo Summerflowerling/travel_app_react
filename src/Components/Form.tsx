@@ -55,7 +55,7 @@ export const Search = () => {
                         type="text"
                         name="destination"
                         value={values.destination}
-                        onChange={handleChange}
+                        onChange={ handleChange}
                 />
                 </div>
                 <div className="form-flex-item-wrapper">
@@ -77,15 +77,16 @@ export const Search = () => {
                 <div className="form-flex-item-wrapper">
                 <label htmlFor="travelEndDate">End date:</label>
                 <input
-                    required
-                    id="travelEndDate"
-                    placeholder="2021/mm/dd"
-                    className="duration"
-                    type="date"
-                    name="tripEnd"
-                    min="2021-01-01"
-                    max="2022-12-31"
-                    value=""
+                        required
+                        id="travelEndDate"
+                        placeholder="2021/mm/dd"
+                        className="duration"
+                        type="date"
+                        name="tripEnd"
+                        min="2021-01-01"
+                        max="2022-12-31"
+                        value={values.tripEnd}
+                        onChange={ handleChange}
                 />
                 </div>
             </form>
