@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const useForm = () => {
+const useForm: any = () => {
   const [values, setValues] = useState({
     destination: '',
     tripStart: '',
@@ -15,7 +15,7 @@ const useForm = () => {
     });
   };
 
-  return { handleChange, values };
+  return { handleChange, values } as const;
 };
 
 export default useForm;

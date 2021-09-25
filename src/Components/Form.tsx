@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useForm from '../hooks/useForm.hook';
+import useForm from '../Hooks/useForm.hook';
 
 const Search = (): JSX.Element => {
   // One day Time in ms (milliseconds)
