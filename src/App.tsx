@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Button } from './Components/Button';
-import { Search } from './Components/Form';
-import { Weather } from './Components/Weather';
+import Button from './Components/Button';
+import Search from './Components/Form';
+import Weather from './Components/Weather';
 
-function App() {
+const App = (): JSX.Element => {
   const [checkWeather, setCheckWeather] = useState(false);
   const toggleButton = () => {
     setCheckWeather(prevCheckWeather => !prevCheckWeather);
@@ -31,6 +31,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;

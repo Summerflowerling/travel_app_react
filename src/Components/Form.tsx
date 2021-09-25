@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useForm } from '../hooks/useForm.hook';
+import React, { useState } from 'react';
+import useForm from '../hooks/useForm.hook';
 
-export const Search = () => {
+const Search = (): JSX.Element => {
   // One day Time in ms (milliseconds)
   const oneDayMs = 1000 * 60 * 60 * 24;
   const today = new Date();
   const [preState, setPreState] = useState('');
 
   // Calculate the trip duration
-  function getDays(inputStartDate: number, inputEndDate: number) {
+  const getDays = (inputStartDate: number, inputEndDate: number) => {
     const todayDate = today.getDate();
     const todayMonth = today.getMonth() + 1;
     console.log('todayDate', todayDate);
@@ -36,7 +36,7 @@ export const Search = () => {
     console.log(Math.round(differenceInDays));
     const duration = Math.round(differenceInDays);
     return duration;
-  }
+  };
 
   const { handleChange, values } = useForm();
   return (
@@ -92,3 +92,5 @@ export const Search = () => {
     </div>
   );
 };
+
+export default Search;

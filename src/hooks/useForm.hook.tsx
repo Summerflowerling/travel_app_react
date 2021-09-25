@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-export const useForm = () => {
+const useForm = () => {
   const [values, setValues] = useState({
     destination: '',
     tripStart: '',
@@ -17,3 +17,5 @@ export const useForm = () => {
 
   return { handleChange, values };
 };
+
+export default useForm;
