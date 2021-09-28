@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
-import useForm from '../Hooks/useForm.hook';
+import Button from './Button';
 
-const Search = (): JSX.Element => {
-  // One day Time in ms (milliseconds)
-  const oneDayMs = 1000 * 60 * 60 * 24;
-  const today = new Date();
-  const [preState, setPreState] = useState('');
+const Form = (): JSX.Element => {
+  const [submitForm, setSubmitForm] = useState(false);
+  const [checkWeather, setCheckWeather] = useState(false);
+  const [travelDuration, setTravelDuration] = useState(0);
+  const [values, setValues] = useState({
+    destination: '',
+    tripStart: '',
+    tripEnd: '',
+  });
+
+  const toggleButton = () => {
+    setCheckWeather(prevCheckWeather => !prevCheckWeather);
+    console.log(checkWeather);
+  };
 
   // Calculate the trip duration
-  const getDays = (inputStartDate: number, inputEndDate: number) => {
+  const getDays = (inputStartDate: string, inputEndDate: string) => {
+    const oneDayMs = 1000 * 60 * 60 * 24;
+    const today = new Date();
     const todayDate = today.getDate();
     const todayMonth = today.getMonth() + 1;
     console.log('todayDate', todayDate);
@@ -19,9 +30,9 @@ const Search = (): JSX.Element => {
     const theStartDate = travelStart.getDate();
     const theStartMonth = travelStart.getMonth() + 1;
     /*
-        let theEndDate = travelEnd.getDate()
-        let theEndMonth = travelEnd.getMonth()+1
-        */
+          let theEndDate = travelEnd.getDate()
+          let theEndMonth = travelEnd.getMonth()+1
+       */
     if (theStartMonth < todayMonth || (theStartMonth === todayMonth && theStartDate < todayDate)) {
       return alert("You can't travel to the past. Please check your date again");
     }
@@ -35,10 +46,52 @@ const Search = (): JSX.Element => {
     const differenceInDays = differenceInTime / oneDayMs;
     console.log(Math.round(differenceInDays));
     const duration = Math.round(differenceInDays);
-    return duration;
+    return setTravelDuration(duration);
   };
 
-  const { handleChange, values } = useForm();
+  /*const getLocation = (locationInput, startDate, endDate) => {
+    fetch('http://localhost:8080/getGeoname', {
+      method: 'POST',
+      credentials: 'same-origin',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ location: `${locationInput}`, startDate: `${startDate}`, endDate: `${endDate}` }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log('response json', json);
+        city = json[0].city_name;
+        url = json[1];
+        weatherInfo = json[0].data;
+        const duration = Client.getDays(startDate, endDate);
+        if (duration <= 0) {
+          alert('Date input seems not correct');
+          return;
+        } else {
+          Client.updateUi(city, url, startDate, endDate, duration, weatherInfo);
+        }
+      });
+  };
+  */
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+    return { handleChange, values } as const;
+  };
+
+  const handleSubmit = () => {
+    console.log('submit');
+    console.log(values);
+    getDays(values.tripStart, values.tripEnd);
+    console.log(' travwlDuration', travelDuration);
+  };
+
   return (
     <div>
       <form>
@@ -88,9 +141,9 @@ const Search = (): JSX.Element => {
           />
         </div>
       </form>
-      <button type="submit">Submit</button>
+      <Button text="submit" onClick={handleSubmit} />
     </div>
   );
 };
 
-export default Search;
+export default Form;
