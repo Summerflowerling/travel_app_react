@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from './Button';
+import SearchResult from './SearchResult';
 
 const Form = (): JSX.Element => {
   const [submitForm, setSubmitForm] = useState(false);
   const [checkWeather, setCheckWeather] = useState(false);
-  const [travelDuration, setTravelDuration] = useState(0);
   const [values, setValues] = useState({
     destination: '',
     tripStart: '',
     tripEnd: '',
+    travelDurationT: 0,
   });
 
   const toggleButton = () => {
@@ -46,7 +47,11 @@ const Form = (): JSX.Element => {
     const differenceInDays = differenceInTime / oneDayMs;
     console.log(Math.round(differenceInDays));
     const duration = Math.round(differenceInDays);
-    return setTravelDuration(duration);
+    setValues({
+      ...values,
+      travelDurationT: duration,
+    });
+    return duration;
   };
 
   /*const getLocation = (locationInput, startDate, endDate) => {
@@ -89,7 +94,7 @@ const Form = (): JSX.Element => {
     console.log('submit');
     console.log(values);
     getDays(values.tripStart, values.tripEnd);
-    console.log(' travwlDuration', travelDuration);
+    console.log(' travel info', values); // didn't update right away
   };
 
   return (
@@ -141,7 +146,8 @@ const Form = (): JSX.Element => {
           />
         </div>
       </form>
-      <Button text="submit" onClick={handleSubmit} />
+      <Button id="submit" text="submit" onClick={handleSubmit} />
+      <SearchResult />
     </div>
   );
 };
