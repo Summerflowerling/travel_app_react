@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import { TravelInfoContext } from '../Contexts/TravelContext';
 import Button from './Button';
 import SearchResult from './SearchResult';
 
 const Form = (): JSX.Element => {
   const [submitForm, setSubmitForm] = useState(false);
   const [checkWeather, setCheckWeather] = useState(false);
-  const [values, setValues] = useState({
-    destination: '',
-    tripStart: '',
-    tripEnd: '',
-    travelDurationT: 0,
-  });
+  const infoContext = useContext(TravelInfoContext);
 
   const toggleButton = () => {
     setCheckWeather(prevCheckWeather => !prevCheckWeather);
@@ -47,9 +43,9 @@ const Form = (): JSX.Element => {
     const differenceInDays = differenceInTime / oneDayMs;
     console.log(Math.round(differenceInDays));
     const duration = Math.round(differenceInDays);
-    setValues({
-      ...values,
-      travelDurationT: duration,
+    infoContext!.setValues({
+      ...infoContext!.values,
+      travelDuration: duration,
     });
     return duration;
   };
@@ -83,22 +79,22 @@ const Form = (): JSX.Element => {
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     const { name, value } = e.target;
-    setValues({
-      ...values,
+    infoContext!.setValues({
+      ...infoContext!.values,
       [name]: value,
     });
-    return { handleChange, values } as const;
+    return { handleChange } as const;
   };
 
   const handleSubmit = () => {
     console.log('submit');
-    console.log(values);
-    getDays(values.tripStart, values.tripEnd);
-    console.log(' travel info', values); // didn't update right away
+    console.log(infoContext!.values);
+    getDays(infoContext!.values.tripStart, infoContext!.values.tripEnd);
+    console.log(' travel info', infoContext!.values); // didn't update right away
   };
 
   return (
-    <div>
+    <>
       <form>
         <div className="form-flex-item-wrapper">
           <label id="label-destination" htmlFor="destination">
@@ -111,7 +107,7 @@ const Form = (): JSX.Element => {
             className="destination"
             type="text"
             name="destination"
-            value={values.destination}
+            value={infoContext!.values.destination}
             onChange={handleChange}
           />
         </div>
@@ -126,7 +122,7 @@ const Form = (): JSX.Element => {
             name="tripStart"
             min="2021-01-01"
             max="2022-12-31"
-            value={values.tripStart}
+            value={infoContext!.values.tripStart}
             onChange={handleChange}
           />
         </div>
@@ -141,15 +137,17 @@ const Form = (): JSX.Element => {
             name="tripEnd"
             min="2021-01-01"
             max="2022-12-31"
-            value={values.tripEnd}
+            value={infoContext!.values.tripEnd}
             onChange={handleChange}
           />
         </div>
       </form>
       <Button id="submit" text="submit" onClick={handleSubmit} />
       <SearchResult />
-    </div>
+    </>
   );
 };
 
 export default Form;
+
+// TODO: Add useContext in Form and render dynamically in SearchResult

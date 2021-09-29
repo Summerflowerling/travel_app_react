@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import Button from './Components/Button';
 import Form from './Components/Form';
 import Weather from './Components/Weather';
+import { TravelInfoContextProvider } from './Contexts/TravelContext';
 
 const App = (): JSX.Element => {
   return (
     <Router>
-      <div className="App">
-        <Switch>
-          <Route path="/" exact component={Form} />
-          <Route path="/weather" component={Weather} />
-        </Switch>
-      </div>
+      <TravelInfoContextProvider>
+        <div className="App">
+          <Switch>
+            <Route path="/" exact component={Form} />
+            <Route path="/weather" component={Weather} />
+          </Switch>
+        </div>
+      </TravelInfoContextProvider>
     </Router>
   );
 };

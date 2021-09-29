@@ -41,7 +41,8 @@
           "singleQuote": true,
           "trailingComma": "all",
           "proseWrap": "preserve",
-          "arrowParens": "avoid"
+          "arrowParens": "avoid",
+          "useTabs": false
         }
       ],
       "import/order": [
