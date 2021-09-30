@@ -10,6 +10,7 @@ const SearchResult = (): JSX.Element => {
   return (
     <div>
       <h1>{travelInfo!.values.destination}</h1>
+      {travelInfo!.values.travelDuration != 0 ? <h3>{travelInfo!.values.travelDuration}</h3> : null}
     </div>
   );
 };
