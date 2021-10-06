@@ -40,17 +40,25 @@ type hitsEntity = {
   largeImageURL: string;
 }
 
+const geoData = (data: any): data is GeoData => {
+  return "geonames" in data
+ }
+
 app.post('/getGeoname', async (req: Request, res: Response) => {
-  const API_URL = `http://api.geonames.org/searchJSON?q=${req.body.location}&maxRows=1&username=iku124`;
+ // const API_URL = `http://api.geonames.org/searchJSON?q=${req.body.location}&maxRows=1&username=iku124`;
+  const API_URL = `http://api.geonames.org/searchJSON?q="paris"&maxRows=1&username=iku124`;
   const myPromise = await fetch(API_URL);
 
   try {
-    const myData: GeoData = await myPromise.json();
-    const lng = myData.geonames[0].lng;
-    const lat = myData.geonames[0].lat;
-    const weatherbit = await fetch(
-      `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&days=7&key=25236c54b21347c5acba0d34020a5c84`,
-    );
+    if (myPromise && geoData(myPromise)) {
+      const myData: GeoData = await myPromise.json();
+      const lng = myData.geonames[0].lng;
+      const lat = myData.geonames[0].lat;
+      const weatherbit = await fetch(
+        `https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lng}&days=7&key=25236c54b21347c5acba0d34020a5c84`,
+        );
+    }
+    
     try {
       const weatherbitPromise = await weatherbit.json();
       console.log(weatherbitPromise);
