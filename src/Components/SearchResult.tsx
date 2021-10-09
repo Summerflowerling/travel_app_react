@@ -12,7 +12,7 @@ const SearchResult = (): JSX.Element => {
   const duration = travelInfo!.values.travelDuration;
 
   const getLocation = (locationInput: string, startDate: string, endDate: string) => {
-    fetch('http://localhost:8080/getGeoname', {
+    fetch('http://localhost:8085/getGeoname', {
       method: 'POST',
       credentials: 'same-origin',
       mode: 'cors',

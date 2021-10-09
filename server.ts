@@ -9,7 +9,7 @@ import fetch from 'node-fetch';
 //const weatherBitUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
 //const pixabayUrl = 'https://pixabay.com/api/?key=4772361-58a041a9c4a31b16cbe90fbc1&q=yellow+flowers&image_type=photo';
 const app: Application = express();
-app.use(express.static('dist'));
+app.use(express.static('src'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
