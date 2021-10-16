@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { Request, Response, Application } from 'express';
 import express from 'express';
-import fetch from 'node-fetch';
+import got from 'got';
 //const geonamesBaseUrl = 'http://api.geonames.org/searchJSON?';
 //const weatherBitUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?';
 //const pixabayUrl = 'https://pixabay.com/api/?key=4772361-58a041a9c4a31b16cbe90fbc1&q=yellow+flowers&image_type=photo';
