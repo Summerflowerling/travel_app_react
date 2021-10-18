@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Form from './Components/Form';
+import SearchResult from './Components/SearchResult';
 import Weather from './Components/Weather';
 import { TravelInfoContextProvider } from './Contexts/TravelContext';
 
@@ -12,6 +13,7 @@ const App = (): JSX.Element => {
           <Switch>
             <Route path="/" exact component={Form} />
             <Route path="/weather" component={Weather} />
+            <Route path="/getGeoname" component={SearchResult} />
           </Switch>
         </div>
       </TravelInfoContextProvider>
