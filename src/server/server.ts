@@ -19,12 +19,13 @@ app.use(cors());
 app.get('/', (req: Request, res: Response) => {
   //res.sendFile('dist/index.tsx');
   //res.sendFile(path.resolve('src/index.tsx'));
-  res.send('Hello')
+  res.send('Hello');
 });
 
-const port = 8085
-app.listen(port, () => { console.log(`server running on ${port}` )});
-
+const port = 8085;
+app.listen(port, () => {
+  console.log(`server running on ${port}`);
+});
 
 /*
 type GeoData = {
@@ -77,7 +78,7 @@ app.get('/getGeoname', async (req, res) => {
   let pixabayRes;
 
   try {
-    const geonamesBody = JSON.parse(myPromise.body)
+    const geonamesBody = JSON.parse(myPromise.body);
     try {
       const lng = geonamesBody.geonames[0].lng;
       const lat = geonamesBody.geonames[0].lat;
@@ -86,26 +87,20 @@ app.get('/getGeoname', async (req, res) => {
       );
       weatherbitRes = JSON.parse(weatherbit.body);
       const pixabay = await got(
-        `https://pixabay.com/api/?key=4772361-58a041a9c4a31b16cbe90fbc1&q=${geonamesBody.geonames[0].toponymName}&image_type=photo&editors_choice=true&category=travel`, 
+        `https://pixabay.com/api/?key=4772361-58a041a9c4a31b16cbe90fbc1&q=${geonamesBody.geonames[0].toponymName}&image_type=photo&editors_choice=true&category=travel`,
       );
       pixabayRes = JSON.parse(pixabay.body);
-          
+
       res.send([weatherbitRes, pixabayRes.hits[0].largeImageURL]);
       console.log('pixabayRes', pixabayRes.hits[0].largeImageURL);
-            
-    }
-    catch (error) {
+    } catch (error) {
       //res.send([weatherbitPromiseObjType, '/img/backup.png']);
       console.log('Something wrong when fetching the photo', error);
     }
-  }
-    
-  catch (error) {
+  } catch (error) {
     alert('Make sure you enter a country or city name');
     return;
   }
 });
-
-
 
 //module.exports = app

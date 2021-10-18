@@ -10,7 +10,7 @@ const SearchResult = (): JSX.Element => {
   const startDate = travelInfo!.values.tripStart;
   const endDate = travelInfo!.values.tripEnd;
   const duration = travelInfo!.values.travelDuration;
-
+  /*..
   const getLocation = (locationInput: string, startDate: string, endDate: string) => {
     fetch('http://localhost:8085/getGeoname', {
       method: 'POST',
@@ -37,7 +37,7 @@ const SearchResult = (): JSX.Element => {
         }
       });
   };
-
+*/
   return (
     <div>
       <h1>{locationInput}</h1>
