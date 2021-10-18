@@ -13,7 +13,7 @@ const App = (): JSX.Element => {
           <Switch>
             <Route path="/" exact component={Form} />
             <Route path="/weather" component={Weather} />
-            <Route path="/getGeoname" component={SearchResult} />
+            <Route path="/SearchResult" component={SearchResult} />
           </Switch>
         </div>
       </TravelInfoContextProvider>

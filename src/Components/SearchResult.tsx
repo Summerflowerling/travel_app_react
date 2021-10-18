@@ -1,3 +1,4 @@
+import got from 'got';
 import React, { useContext, useEffect } from 'react';
 import { TravelInfoContext } from '../Contexts/TravelContext';
 let url;
@@ -10,9 +11,22 @@ const SearchResult = (): JSX.Element => {
   const startDate = travelInfo!.values.tripStart;
   const endDate = travelInfo!.values.tripEnd;
   const duration = travelInfo!.values.travelDuration;
-  /*..
+
+  /*
+  const getTravelInfo = () => {
+    got('http://localhost:8089/getGeoname')
+      .then(res => {
+        console.log(res.body)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+  */
+
+  /*
   const getLocation = (locationInput: string, startDate: string, endDate: string) => {
-    fetch('http://localhost:8085/getGeoname', {
+    got('http://localhost:8089/getGeoname', {
       method: 'POST',
       credentials: 'same-origin',
       mode: 'cors',
