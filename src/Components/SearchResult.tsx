@@ -12,20 +12,8 @@ const SearchResult = (): JSX.Element => {
   const duration = travelInfo!.values.travelDuration;
   const [city, setCity] = useState('');
 
-  /*
-  const getTravelInfo = () => {
-    got('http://localhost:8089/getGeoname')
-      .then(res => {
-        console.log(res.body)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-  */
-
   type data = {
-    weatherbitRes: any;
+    weatherbitRes: { city_name: string };
     pixabayRes: string;
   };
 
