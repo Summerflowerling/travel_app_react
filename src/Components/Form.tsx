@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { TravelInfoContext } from '../Contexts/TravelContext';
 import Button from './Button';
@@ -6,7 +7,11 @@ import SearchResult from './SearchResult';
 const Form = (): JSX.Element => {
   const [submitForm, setSubmitForm] = useState(false);
   const [checkWeather, setCheckWeather] = useState(false);
-  const infoContext = useContext(TravelInfoContext);
+  const travelInfoContext = useContext(TravelInfoContext);
+  const locationInput = travelInfoContext!.values.destination;
+  const startDate = travelInfoContext!.values.tripStart;
+  const endDate = travelInfoContext!.values.tripEnd;
+  const duration = travelInfoContext!.values.travelDuration;
 
   const toggleButton = () => {
     setCheckWeather(prevCheckWeather => !prevCheckWeather);
@@ -43,11 +48,23 @@ const Form = (): JSX.Element => {
     const differenceInDays = differenceInTime / oneDayMs;
     console.log(Math.round(differenceInDays));
     const duration = Math.round(differenceInDays);
-    infoContext!.setValues({
-      ...infoContext!.values,
+    travelInfoContext!.setValues({
+      ...travelInfoContext!.values,
       travelDuration: duration,
     });
     return duration;
+  };
+
+  type postResData = {
+    weatherbitRes: { city_name: string; country_code: string; data: any[] };
+    pixabayRes: string;
+  };
+
+  const getTravelInfo = () => {
+    axios
+      .post<postResData>('/getGeoname', { UserInputcity: locationInput })
+      .then(res => console.log('from axios', res.data.weatherbitRes.data[0].weather))
+      .catch(err => console.log('There is some:', err));
   };
 
   /*const getLocation = (locationInput, startDate, endDate) => {
@@ -79,8 +96,8 @@ const Form = (): JSX.Element => {
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     const { name, value } = e.target;
-    infoContext!.setValues({
-      ...infoContext!.values,
+    travelInfoContext!.setValues({
+      ...travelInfoContext!.values,
       [name]: value,
     });
     return { handleChange } as const;
@@ -88,9 +105,10 @@ const Form = (): JSX.Element => {
 
   const handleSubmit = () => {
     console.log('submit');
-    console.log(infoContext!.values);
-    getDays(infoContext!.values.tripStart, infoContext!.values.tripEnd);
-    console.log(' travel info', infoContext!.values); // didn't update right away
+    console.log(travelInfoContext!.values);
+    getDays(travelInfoContext!.values.tripStart, travelInfoContext!.values.tripEnd);
+    console.log(' travel info', travelInfoContext!.values); // didn't update right away
+    getTravelInfo();
   };
 
   return (
@@ -107,7 +125,7 @@ const Form = (): JSX.Element => {
             className="destination"
             type="text"
             name="destination"
-            value={infoContext!.values.destination}
+            value={travelInfoContext!.values.destination}
             onChange={handleChange}
           />
         </div>
@@ -122,7 +140,7 @@ const Form = (): JSX.Element => {
             name="tripStart"
             min="2021-01-01"
             max="2022-12-31"
-            value={infoContext!.values.tripStart}
+            value={travelInfoContext!.values.tripStart}
             onChange={handleChange}
           />
         </div>
@@ -137,12 +155,14 @@ const Form = (): JSX.Element => {
             name="tripEnd"
             min="2021-01-01"
             max="2022-12-31"
-            value={infoContext!.values.tripEnd}
+            value={travelInfoContext!.values.tripEnd}
             onChange={handleChange}
           />
         </div>
       </form>
-      <Button id="submit" text="submit" onClick={handleSubmit} />
+      <button id="submit" onClick={handleSubmit}>
+        Submit
+      </button>
       <SearchResult />
     </>
   );
@@ -151,3 +171,4 @@ const Form = (): JSX.Element => {
 export default Form;
 
 // TODO: Add useContext in Form and render dynamically in SearchResult
+//<Button id="submit" text="submit" onClick={handleSubmit} />
