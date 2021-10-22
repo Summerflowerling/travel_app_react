@@ -4,10 +4,12 @@ import Form from './Components/Form';
 import SearchResult from './Components/SearchResult';
 import Weather from './Components/Weather';
 import { TravelInfoContextProvider } from './Contexts/TravelContext';
+import {TravelInfoFromServerProvider } from './Contexts/TravelInfoFromServer';
 
 const App = (): JSX.Element => {
   return (
     <Router>
+      <TravelInfoFromServerProvider>
       <TravelInfoContextProvider>
         <div className="App">
           <Switch>
@@ -17,6 +19,7 @@ const App = (): JSX.Element => {
           </Switch>
         </div>
       </TravelInfoContextProvider>
+      </TravelInfoFromServerProvider>
     </Router>
   );
 };
