@@ -1,6 +1,8 @@
 # Getting Started with this travel app
 
-Enter the city you want to search and the travel date. This app returns your travel duration and give you the next 7 days's local weather forecast.
+- Enter the city you want to search and the travel date. This app returns your travel duration and give you the next 7 days's local weather forecast.
+
+- The backend server is split in a different repo. Check [Backend server for travel app](https://github.com/Summerflowerling/express_typescript_backend_test.git)
 
 ---
 
@@ -43,10 +45,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-### `npm run server`
-
-Runs nodemon and server.ts
 
 ### `npm run lint:fix`
 
