@@ -8,6 +8,7 @@ export type TravelInfoFromServer = {
   data: Record<string, unknown>[];
   city_name: string;
   timezone: string;
+  country_code: string;
 };
 
 type ValuesFromServer = {
@@ -23,7 +24,8 @@ export const TravelInfoFromServerProvider = ({
   const [valuesFromServer, setValuesFromServer] = useState<TravelInfoFromServer>({
     data: [],
     city_name: 'No data yet',
-    timezone: 'no data yet',
+    timezone: 'No data yet',
+    country_code: 'No data yet',
   });
   return (
     <TravelInfoFromServerContext.Provider value={{ valuesFromServer, setValuesFromServer }}>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { TravelInfoContext } from '../Contexts/TravelContext';
+import { TravelInfoFromServerContext } from '../Contexts/TravelInfoFromServer';
 import Button from './Button';
 import SearchResult from './SearchResult';
 
@@ -8,6 +9,7 @@ const Form = (): JSX.Element => {
   const [submitForm, setSubmitForm] = useState(false);
   const [checkWeather, setCheckWeather] = useState(false);
   const travelInfoContext = useContext(TravelInfoContext);
+  const travelInfoFromServerContext = useContext(TravelInfoFromServerContext);
   const locationInput = travelInfoContext!.values.destination;
   const startDate = travelInfoContext!.values.tripStart;
   const endDate = travelInfoContext!.values.tripEnd;
@@ -56,14 +58,23 @@ const Form = (): JSX.Element => {
   };
 
   type postResData = {
-    weatherbitRes: { city_name: string; country_code: string; data: any[] };
+    weatherbitRes: { city_name: string; country_code: string; data: Record<string, unknown>[]; timezone: string };
     pixabayRes: string;
   };
 
   const getTravelInfo = () => {
     axios
       .post<postResData>('/getGeoname', { UserInputcity: locationInput })
-      .then(res => console.log('from axios', res.data.weatherbitRes.data[0].weather))
+      .then(res => {
+        console.log('from axios', res.data.weatherbitRes);
+        travelInfoFromServerContext?.setValuesFromServer({
+          city_name: res.data.weatherbitRes.city_name,
+          country_code: res.data.weatherbitRes.country_code,
+          data: res.data.weatherbitRes.data,
+          timezone: res.data.weatherbitRes.timezone,
+        });
+        console.log('travelIfoFromServer', travelInfoFromServerContext);
+      })
       .catch(err => console.log('There is some:', err));
   };
 
