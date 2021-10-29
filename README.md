@@ -23,8 +23,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Motivation
 
-I decided to revist a project I enjoyed working on to implement more up-to-date technologies I have learnt!
-This project is refactored with TypeScript, Eslint and Prettier based on my oringial travel app.
+I decided to revisit a project I enjoyed working on to implement more up-to-date technologies I have learnt!
+This project is refactored with TypeScript, Eslint and Prettier based on my oringinal travel app.
 
 ---
 
