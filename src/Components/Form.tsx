@@ -64,9 +64,9 @@ const Form = (): JSX.Element => {
 
   const getTravelInfo = () => {
     axios
-      .post<postResData>('/getGeoname', { UserInputcity: locationInput })
+      .post<postResData>('/getInfo', { UserInputcity: locationInput })
       .then(res => {
-        console.log('from axios', res.data.weatherbitRes);
+        console.log('from axios in Form tsx', res.data.weatherbitRes);
         travelInfoFromServerContext?.setValuesFromServer({
           city_name: res.data.weatherbitRes.city_name,
           country_code: res.data.weatherbitRes.country_code,
